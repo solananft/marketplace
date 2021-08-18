@@ -37,7 +37,7 @@ export const AdminView = () => {
   const connection = useConnection();
   const { wallet, connected } = useWallet();
 
-  return store && connection && wallet && connected ? (
+  return connection && wallet && connected ? (
     <InnerAdminView
       store={store}
       whitelistedCreatorsByCreator={whitelistedCreatorsByCreator}
@@ -156,7 +156,13 @@ function InnerAdminView({
   }, [connected]);
 
   if (!store || !newStore) {
-    return <p>Store is not defined</p>;
+    return <Button onClick={async () => {
+      try {
+        await saveAdmin(connection, wallet, false, [])
+      } catch (e) {
+        console.error(e);
+      }
+    }}>CREATE STORE</Button>
   }
 
   const uniqueCreators = Object.values(whitelistedCreatorsByCreator).reduce(
