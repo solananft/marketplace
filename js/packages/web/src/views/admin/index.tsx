@@ -118,7 +118,7 @@ function InnerAdminView({
   wallet,
   connected,
 }: {
-  store: ParsedAccount<Store> | null;
+  store: ParsedAccount<Store>;
   whitelistedCreatorsByCreator: Record<
     string,
     ParsedAccount<WhitelistedCreator>
@@ -127,18 +127,6 @@ function InnerAdminView({
   wallet: WalletAdapter;
   connected: boolean;
 }) {
-
-
-  if (!store) {
-    return <Button onClick={async () => {
-      try {
-        await saveAdmin(connection, wallet, false, [])
-      } catch (e) {
-        console.error(e);
-      }
-    }}>CREATE STORE</Button>
-  }
-
   const [newStore, setNewStore] = useState(
     store && store.info && new Store(store.info),
   );
