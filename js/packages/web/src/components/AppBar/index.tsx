@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Dropdown, Menu } from 'antd';
-import { ConnectButton, CurrentUserBadge, useWallet } from '@oyster/common';
+import { ConnectButton, CurrentUserBadge, useWallet, useConnection } from '@oyster/common';
 import { Notifications } from '../Notifications';
 import useWindowDimensions from '../../utils/layout';
 import { MenuOutlined } from '@ant-design/icons';
@@ -9,6 +9,7 @@ import { useMeta } from '../../contexts';
 
 const UserActions = () => {
   const { wallet } = useWallet();
+  const connection = useConnection();
   const { whitelistedCreatorsByCreator, store } = useMeta();
   const pubkey = wallet?.publicKey?.toBase58() || '';
 
